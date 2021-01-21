@@ -60,7 +60,7 @@ int main(){
  cin>>s;
  cin>>g;
 
- cout<<endl<<"count = "<<this_hash(s,g);
+ cout<<endl<<endl<<"count = "<<this_hash(s,g);
 
   return 0;
 }
