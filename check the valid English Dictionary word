@@ -1,0 +1,120 @@
+/*'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
+'Q','R','S','T','U','V','W','X','Y','Z',*/
+#include<bits/stdc++.h>
+using namespace std;
+const int Max=26;
+char alphabet[Max]={'a','b','c','e','f','g','h','i','j','k',
+'l','m','n','o','p','q','r','s','t','u','v','w','x','x','y','z'};
+char arr[50][50];
+vector<string>English_Dic;
+
+bool check_word(string s){
+   int start=0,end=English_Dic.size()-1;
+   int mid;
+
+  while(start<=end){
+  	
+ 	mid=(start+end)/2;
+  
+  	if(English_Dic[mid]==s)
+  		return true;
+  	else if(English_Dic[mid]>s)
+  		end=mid-1;
+  	else
+  		start=mid+1;
+     
+  }
+
+return false;
+
+}
+void All_possible_words_of(string str,vector<string> &possible_words){
+	
+    string temp;
+
+	for(int i=0;i<str.size();i++){
+		 
+		temp="";
+
+            for(int j=i;j<str.size();j++){
+               temp+=str[j];
+               possible_words.push_back(temp);
+             //  cout<<temp<<" ";
+
+            }
+           // cout<<endl;
+	}    
+}
+void Retrievefile(){
+
+	fstream file;
+	string word,temp,filename;
+
+	filename="dictionary.txt";
+	file.open(filename.c_str());  // opening dictionaty.txt file
+
+
+	while(file>>word){
+		English_Dic.push_back(word);
+		
+	} 
+}
+
+
+string RetrieveCharDiagonally(int n){
+         
+          string s="";
+          for(int i=0;i<n;i++){
+          	s.push_back(arr[i][i]);
+          }
+          return s;
+}
+
+void printRandomMatrix(int n){
+	
+	for(int i=0;i<n;i++){
+		
+		for(int j=0;j<n;j++){
+			
+			arr[i][j]=alphabet[rand()%Max];
+           cout<<arr[i][j];
+					}
+					cout<<endl;
+	}
+}
+
+int main(){
+
+string str;
+int n=50;
+
+printRandomMatrix(n);
+
+ str=RetrieveCharDiagonally(n);
+ cout<<endl<<str<<endl<<endl;
+
+ Retrievefile();
+
+
+// for(int i=0;i<English_Dic.size();i++){
+// 	cout<<English_Dic[i]<<endl;
+//  }
+vector<string> possible_words;
+ All_possible_words_of(str,possible_words);   //possible substrings of string str
+
+ //  for(int i=0;i<possible_words.size();i++){
+	// cout<<possible_words[i]<<endl;
+ // }
+     cout<<"Valid English Words : ";
+for(int i=0;i<possible_words.size();i++){
+	//cout<<possible_words[i]<<" ";
+	if(check_word(possible_words[i])==true&&possible_words[i].size()>1){
+		cout<<possible_words[i]<<", ";
+		//cout<<"Yes";
+	}
+	//else
+	//	cout<<"No";
+	//cout<<endl;
+}
+return 0;
+}
